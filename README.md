@@ -9,13 +9,16 @@ This is an implementation of the SSP API for Linux written in pure C.
 ## Installation
 
 SSP API Installation for 64-bit Linux (Ubuntu 18.04.3 LTS):
-* Create a directory in your downloads folder and cd into it: 
- `mkdir ~/Downloads/SSP-API && cd $_`
+* Go to your downloads folder: 
+ `cd ~/Downloads`
 
-* Clone the project's Github repository
-`git clone https://github.com/sqrldev/SSP-API-Linux.git`.
+* Clone the project's Github repository:
+`git clone https://github.com/sqrldev/SSP-API-Linux.git`
 
-* Open <a href="install.html">install.html</a> for further instructions.
+* Go into the project dir: 
+ `cd SSP-API-Linux`
+
+* Open `install.html` for further instructions.
 
 ## Dependencies
 
