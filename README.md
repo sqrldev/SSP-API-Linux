@@ -32,11 +32,13 @@ This project currently relies on the following dependencies:
     Blowfish (written by Andrew Carter)
     Berkeley DB 18.1.32
     
- Using `xampp-linux-x64-7.3.11-0` is required only if you haven't got an Apache/PHP environment set up already or want to do so manually.
+Blowfish and LodePNG are bundled with the source code, all other dependencies must be downloaded and installed either using your distro's package manager or manually by downloading the packages directly from their respective webistes. Further information can be found in the `install.html` file.
+
+Using `xampp-linux-x64-7.3.11-0` is required only if you haven't got an Apache/PHP environment set up already or want to do so manually.
 
 ## License
 
 This project is licensed under the MIT Open Source License.
-For more information, please read the file <a href="LICENSE">LICENSE</a>
+For more information, please read the <a href="LICENSE">LICENSE</a> file.
 
-Please note however, that the dependencies listed are all subject to their own licensing terms and conditions.
+Please note however, that the dependencies listed above are all subject to their own licensing terms and conditions.
