@@ -1,0 +1,446 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div align="center"><font size="+1"><b><br>
+          SQRL</b><br>
+      </font><br>
+      <b>Installation of SSP API for Linux</b><br>
+      SSP-API-Linux-07.tar.xz<br>
+      <b> </b><br>
+      SSP API reference: <a moz-do-not-send="true"
+        href="https://www.grc.com/sqrl/sspapi.htm">https://www.grc.com/sqrl/sspapi.htm</a><br>
+      <div align="left"><br>
+        The SSP API library presented here is a translation of GRC's
+        MASM/Windows implementation of the SSP API.  The following
+        installation procedure is based on a fresh minimal installation
+        of <b>64-bit Linux Ubuntu version 18.04.3 LTS</b> obtained from
+        <a moz-do-not-send="true"
+          href="https://www.ubuntu.com/download/desktop">https://www.ubuntu.com/download/desktop</a>
+        .<br>
+        <br>
+        After Ubuntu is installed, the bash script, <b>install.sh</b>,
+        automates most of the SSP API installation.  <b>XAMPP</b> is
+        installed to provide a simple implementation of the SSP API. 
+        Step by step instructions are also provided below.<br>
+        <br>
+        Package Contents: (download the .tar.xz file to the downloads
+        folder and run <b>tar -xf SSP*.xz</b> ).<br>
+        <br>
+        Folders: <b>Blowfish-Source,</b><b> </b><b>Lodepng-Source,</b><b>
+        </b><b>PHP-EXT-Source,</b><b> </b><b>SSP-API-Demo</b><b>, </b><b>SSP-API-Source</b><b><br>
+        </b>Files: <b>install.html</b><b>, </b><b>install.sh</b><b><br>
+          <br>
+        </b>Note: The script uses variables for the download and desktop
+        folder names so they can be changed if necessary.<br>
+        In this procedure they are referred to by their default
+        locations <b>~/Downloads</b> and <b>~/Desktop</b> .<br>
+        <br>
+        The installation script needs to know the latest versions of the
+        third-party software it installs.  It defaults to the versions
+        available at the time it was last revised which are listed here
+        followed by the web sites where the current version numbers can
+        be found:<br>
+        <br>
+        <b>db-18.1.32.tar.gz  </b><b><a moz-do-not-send="true"
+href="https://www.oracle.com/technetwork/database/database-technologies/berkeleydb/downloads">https://www.oracle.com/technetwork/database/database-technologies/berkeleydb/downloads</a></b> ***<b><br>
+          <br>
+        </b><b>libsodium-1.0.18-stable.tar.gz  </b><b><a
+            moz-do-not-send="true"
+            href="https://download.libsodium.org/libsodium/releases">https://download.libsodium.org/libsodium/releases</a></b><b><br>
+        </b><b> mbedtls-2.16.3-apache.tgz  </b><b><a
+            moz-do-not-send="true" href="https://tls.mbed.org/download">https://tls.mbed.org/download</a><br>
+          openssl-1.1.1d.tar.gz  <a moz-do-not-send="true"
+            href="https://www.openssl.org/source">https://www.openssl.org/source</a><br>
+        </b><b> </b><b> qrencode-4.0.2.tar.gz  </b><b><a
+            moz-do-not-send="true"
+            href="https://fukuchi.org/works/qrencode">https://fukuchi.org/works/qrencode</a></b><b><br>
+        </b><b>xampp-linux-x64-7.3.11-0-installer.run  </b><b><a
+            moz-do-not-send="true" href="http://www.apachefriends.org">http://www.apachefriends.org</a></b><b><br>
+        </b><b> </b><br>
+        *** Note: To obtain the Berkeley database you will need to
+        register with Oracle<br>
+        *** then download the file manually<b>.</b>  Do that before
+        running the install script.<br>
+        *** The install script will download the other files itself.<br>
+        <b><br>
+        </b>Open the Downloads folder in a terminal and enter the
+        following commands:<br>
+        <b>chmod +x install.sh<br>
+          ./install.sh<br>
+          <br>
+        </b>This provides basic instructions.  You can right-click on
+        each URL displayed in the terminal window and select <b>Open
+          Link</b> to go to the  web page and determine the latest
+        available version number (or click on the links above in this
+        document).<br>
+        <b><br>
+        </b>To install using the defaults run <b>./install.sh --default<br>
+        </b>To specify file versions run, for example, <b>./install.sh 
+          18.1.32  1.0.18  2.16.3  1.1.1d  4.0.2  7.3.11-0<br>
+        </b>or edit <b>install.sh </b>and change the defaults.<br>
+         <br>
+        If you do not want to run the script, follow steps 1 to 20
+        below.<br>
+        <br>
+        If you run the script, note that you will be prompted to edit
+        three files: <b>php.ini</b>, <b>.sspapi.cfg</b> and <b>hosts</b>. 
+        When the script is finished follow steps 14 to 20.<br>
+        <br>
+        <hr width="100%" size="2"><br>
+        Most commands are entered in a terminal window.  Some steps are
+        done in the file manager (Nautilus).  Downloaded files are
+        assumed to be in the ~/Downloads folder.  The reader is assumed
+        to have a basic knowledge of Linux (for the server) and Windows
+        (for the client).<br>
+        <br>
+        1. gcc, make, and net-tools<font size="+1"><br>
+        </font><br>
+        To install enter the commands:<br>
+        <b>sudo apt install gcc<br>
+          sudo apt </b><b>install make<br>
+          s</b><b>udo apt install net-tools<br>
+        </b><b>sudo apt install autoconf<br>
+        </b><br>
+        2. Berkeley Database library<br>
+        <br>
+        Download from: <b><a
+href="https://www.oracle.com/technetwork/database/database-technologies/berkeleydb/downloads">https://www.oracle.com/technetwork/database/database-technologies/berkeleydb/downloads</a></b><br>
+        Select <b>Berkeley DB 18.1.32.tar.gz</b> (or the latest
+        version)<b> </b><br>
+        Open the downloaded file and extract its contents to <b>~/Downloads/db-18.1.32</b><br>
+        Navigate to the <b>build-unix</b> folder, open a terminal there
+        and enter the commands:<br>
+        <b>../dist/configure</b><b><br>
+        </b><b>make</b><b><br>
+        </b><b>sudo make install</b><b><br>
+        </b><b>sudo cp -P /usr/local/BerkeleyDB.18.1/lib/libdb*.so
+          /usr/local/lib</b><b><br>
+        </b><b>sudo cp /usr/local/BerkeleyDB.18.1/include/db.h
+          /usr/local/include<br>
+          <br>
+        </b>3. Libsodium library<br>
+        <br>
+        Download from <b><a moz-do-not-send="true"
+            href="https://download.libsodium.org/libsodium/release">https://download.libsodium.org/libsodium/release</a></b><br>
+        Select <b>libsodium-1.0.18-stable.tar.gz</b> (or the latest
+        version)<br>
+        Open the downloaded file and extract its contents to <b>~/Downloads/libsodium-stable<br>
+        </b>Open the folder <b>libsodium-stable</b> in a terminal and
+        enter the commands:<br>
+        <b>./configure --disable-dependency-tracking<br>
+          make<br>
+          #make check<br>
+          sudo make install<br>
+          <br>
+        </b>4. MBedTLS library<br>
+        <br>
+        Download from <b><a href="https://tls.mbed.org/download">https://tls.mbed.org/download</a></b><br>
+        Select <b>mbedtls-2.16.3-apache.tgz</b> (or the latest version)<br>
+        Open the downloaded file and extract its contents to <b>~/Downloads/mbedtls-2.16.3</b><br>
+        Open the folder <b>mbedtls-2.16.3</b> in a terminal and enter
+        the commands:<br>
+        <b>make no_test CFLAGS='-O2 -fPIC -DMBEDTLS_THREADING_PTHREAD
+          -DMBEDTLS_THREADING_C'</b><br>
+        <b>sudo make install<br>
+          cd /usr/local/lib<br>
+          sudo gcc -shared -o libmbed.so -Wl,-whole-archive -lmbedcrypto
+          -lmbedtls -lmbedx509 -Wl,-no-whole-archive<br>
+          sudo ldconfig<br>
+          cd ~/Downloads<br>
+            </b><br>
+        5. OpenSSL library<br>
+        <br>
+        Download from <b><a href="https://www.openssl.org/source"
+            moz-do-not-send="true">https://www.openssl.org/source</a><br>
+        </b>Select <b>openssl-1.1.1d.tar.gz</b><br>
+        Open the downloaded file and extract its contents to <b>~/Downloads/openssl-1.1.1d<br>
+        </b>Open the folder <b>openssl-1.1.1d  </b>in a terminal and
+        enter the commands:<br>
+        <b>./config<br>
+          make<br>
+          #make test<br>
+          sudo make install<br>
+          <br>
+        </b> 6. QR Encode library<br>
+        <br>
+        Download from <b><a moz-do-not-send="true"
+            href="https://fukuchi.org/works/qrencode">https://fukuchi.org/works/qrencode</a><br>
+        </b>Select qrencode-4.0.2.tar.gz<b><br>
+        </b> Open the downloaded file and extract its contents to <b>~/Downloads/qrencode-4.0.2<br>
+        </b>Open the folder <b>qrencode-4.0.2</b> in a terminal and
+        enter the commands:<br>
+        <b>./configure --without-tools</b><b><br>
+        </b><b>make</b><b><br>
+        </b><b>sudo make install</b><b><br>
+        </b><b>sudo ldconfig</b><b><br>
+        </b><br>
+        7. XAMPP for Linux<br>
+        <br>
+        Download from <b><a
+            href="https:www.apachefriends.org/download.html">https:www.apachefriends.org/download.html</a></b><br>
+        Select <b>xampp-linux-x64-7.3.11-0-installer.run</b><br>
+        Open the <b>Downloads</b> folder in a terminal and enter the
+        commands:<br>
+        <b>chmod +x xampp-linux-x64-7.3.11-0-installer.run</b><br>
+        <b>sudo </b><b>./xampp-linux-x64-7.3.11-0-installer.run</b> <br>
+        <br>
+        Install XAMPP using its Setup Wizard.  Do not launch XAMPP when
+        it is finished.<br>
+        <br>
+        8. Blowfish library<br>
+        <br>
+        Open the folder <b>Blowfish-Source</b> in a terminal and enter
+        the command<br>
+        <b>make</b><br>
+        <br>
+        9. Lodepng library<br>
+        <br>
+        Open the folder <b>Lodepng-Source</b> in a terminal and enter
+        the command<br>
+        <b>make</b><br>
+        <br>
+        10. SSP-API-Source<br>
+        <br>
+        Open the folder <b>SSP-API-Source</b> in a terminal and enter
+        the command:<br>
+        <b>make<br>
+          <br>
+        </b>11. PHP Extension<b><br>
+          <br>
+        </b>Open the folder <b>PHP-EXT-Source</b> in a terminal and
+        enter the commands:<br>
+        <b>/opt/lampp/bin/phpize</b><br>
+        <b>./configure --enable-sspphp
+          --with-php-config=/opt/lampp/bin/php-config</b><br>
+        <b>sudo make install</b><b><br>
+        </b><br>
+        Edit the file <b>php.ini :<br>
+        </b><b>sudo nano -c /opt/lampp/etc/php.ini</b><br>
+        Locate the section on Dynamic Extensions (~ line 925)<br>
+        Add the line <b>extension=sspphp.so</b><br>
+        <br>
+        12. SSP-API-DEMO<br>
+        <br>
+        Open the folder <b>SSP-API-Demo </b>in a terminal and run the
+        following commands:<br>
+        <b>mkdir ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Source/ssphttp
+          ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Source/sspfunc
+          ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Demo/.sspapi.cfg
+          ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Demo/ssp.server.crt
+          ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Demo/ssp.server.key
+          ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Demo/DebugFilter.txt
+          ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Demo/rx.sh ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Demo/rh.sh ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>cp ~/Downloads/SSP-API-Demo/rf.sh ~/Desktop/SSP-API-Demo</b><b><br>
+        </b><b>chmod +x ~/Desktop/SSP-API-Demo/rh.sh</b><b><br>
+        </b><b>chmod +x ~/Desktop/SSP-API-Demo/rf.sh</b><b><br>
+        </b><b>chmod +x ~/Desktop/SSP-API-Demo/rx.sh</b><b><br>
+        </b><br>
+        <b>sudo mv /opt/lampp/etc/ssl.crt/server.crt
+          /opt/lampp/etc/ssl.crt/server.crt.old</b><b><br>
+        </b><b>sudo ln -s ~/Downloads/SSP-API-Demo/web.server.crt
+          /opt/lampp/etc/ssl.crt/server.crt</b><b><br>
+        </b><b>sudo mv /opt/lampp/etc/ssl.key/server.key
+          /opt/lampp/etc/ssl.key/server.key.old</b><b><br>
+        </b><b>sudo ln -s ~/Downloads/SSP-API-Demo/web.server.key
+          /opt/lampp/etc/ssl.key/server.key</b><b><br>
+        </b><b>sudo mkdir /opt/lampp/htdocs/sqrl</b><b><br>
+        </b><b>sudo ln -s ~/Downloads/SSP-API-Demo/sqrl.index.php
+          /opt/lampp/htdocs/sqrl/index.php</b><b><br>
+        </b><b>sudo mkdir /opt/lampp/htdocs/auth</b><b><br>
+        </b><b>sudo ln -s ~/Downloads/SSP-API-Demo/auth.index.php
+          /opt/lampp/htdocs/auth/index.php</b><b><br>
+        </b><b>sudo mkdir /opt/lampp/htdocs/test</b><b><br>
+        </b><b>sudo ln -s ~/Downloads/SSP-API-Demo/test.index.php
+          /opt/lampp/htdocs/test/index.php</b><b><br>
+        </b><b>sudo cp ~/Downloads/SSP-API-Demo/.sspapi.cfg
+          /opt/lampp/htdocs/test</b><b><br>
+        </b><b>sudo cp ~/Downloads/SSP-API-Demo/DebugFilter.txt
+          /opt/lampp/htdocs/test</b><b><br>
+        </b><b>sudo chmod a+w -R /opt/lampp/htdocs/test</b><b><br>
+        </b><br>
+        13. Customize with the Server ip address<br>
+        <br>
+        Run <b>hostname -I</b> to determine the local ip address<br>
+        Make a note of this address.  It will be referred to as <b>&lt;server-ip&gt;
+          <br>
+          <br>
+        </b>Edit the SSP API configuration file<br>
+        <b>nano ~/Desktop/SSP-API-Demo/.sspapi.cfg<br>
+          <br>
+        </b>Choose the handler you want by "commenting out" with a <b>#</b>
+        the other e.g.<br>
+        <b>#HandlerName=MBedTLS</b><b><br>
+        </b><b>HandlerName=OpenSSL</b><b><br>
+        </b><b><br>
+        </b>In the line <b>ListenIP=&lt;ssp-server-ip&gt;</b> replace <b>&lt;ssp-server-ip&gt;</b>
+        with your <b>&lt;server-ip&gt;<br>
+        </b>In the line <b>PrivateAccess=&lt;web-server-ip&gt;</b>
+        replace <b>&lt;web-server-ip&gt;</b> with your <b>&lt;server-ip&gt;</b><br>
+        <b> <br>
+        </b>Edit the hosts file with the command:<br>
+        <b>sudo nano /etc/hosts<br>
+          <br>
+        </b>
+        <div align="left"><b> </b>Add these two lines:<br>
+          <b>&lt;server-ip&gt; ssp.server</b><br>
+          <b>&lt;server-ip&gt; web.server<br>
+          </b><br>
+          <hr width="100%" size="2"><br>
+          14.  Open the SSP-API-Demo folder on the Desktop in a
+          terminal.<br>
+          Enter the command <b>./rh.sh<br>
+          </b><br>
+          This starts XAMPP and initializes the SSP-API.  The code is in
+          sspmain.c under #ifdef HTTP_INTERFACE.<b><br>
+          </b><br>
+          Some information should be displayed ending with<br>
+          <b>[ MBedTLS ] Waiting for a remote connection </b>(for
+          MBedTLS)<br>
+          or<b><br>
+            Listen URL: https://[</b>&lt;ip address&gt;<b>]:8443 </b>(for
+          OpenSSL)<br>
+          <b> <br>
+          </b>Open Firefox and go to <a moz-do-not-send="true"
+            href="https://ssp.server:8443/png.sqrl"><b>https://ssp.server:8443/png.sqrl</b></a><br>
+          Allow an exception for the self-signed certificate.<br>
+          You should receive a QR code<br>
+          <br>
+          Go to <a moz-do-not-send="true"
+            href="https://web.server/sqrl"><b>https://web.server/sqrl</b></a><br>
+          Allow an exception for the self-signed certificate.<br>
+          You should see a SQRL Sign In page<br>
+          <br>
+          In order to sign in using GRC's sqrl.exe client you need to
+          run it under Windows.<br>
+          <br>
+          15. On the Windows Computer: Edit the HOSTS file<br>
+          <br>
+          Edit the Window HOSTS file <br>
+          <b>C:\Windows\System32\Drivers\etc\HOSTS</b><br>
+          <b> </b><br>
+          <b> </b>Add these two lines, replacing <b>&lt;server-ip&gt;</b>
+          with the same ip address obtained previously with <b>hostname</b><br>
+          <b>&lt;server-ip&gt; ssp.server</b><br>
+          <b>&lt;server-ip&gt; web.server<br>
+          </b><br>
+          16. On the Windows Computer:  Register the self-signed
+          certificates<br>
+          <br>
+          Copy <b>ssp.server.crt</b> and <b>web.server.crt</b> from
+          the Ubuntu <b>Downloads/SSP-API-Demo</b> folder to a USB
+          flash drive or otherwise make them available to Windows.<br>
+          <br>
+          These steps are from Windows 7.<br>
+          Run <b>mmc</b> from the Start Menu or a Command Prompt<br>
+          From the <b>File</b> menu, select <b>Add/Remove Snap-in</b><br>
+          Select <b>Certificates</b> and click <b>Add</b>, select <b>My
+            user account</b>, click <b>Finish</b>, click <b>OK</b><br>
+          Double-click on <b>Certificates - Current User</b><br>
+          Right-click on <b>Trusted Root Certification Authorities</b>,
+          select <b>All Tasks -&gt; Import</b><br>
+          At the Import Wizard click <b>Next</b><br>
+          Click <b>Browse</b> and locate <b>ssp.server.crt</b>, click
+          <b>Open</b><br>
+          Click <b>Next</b><br>
+          Select <b>Place all certificates in the following store</b><br>
+           <b>Trusted Root Certificate Authorities</b><br>
+          Click <b>Next</b><br>
+          Click <b>Finish</b><br>
+          For the <b>Security Warning</b> click <b>Yes</b><br>
+          For <b>The import was successful</b>, click <b>OK<br>
+            <br>
+          </b>Repeat for <b>web.server.crt<br>
+          </b><br>
+          Close the application and click Yes to <b>Save console
+            settings to Console1?</b><br>
+          <br>
+          17. On the Windows Computer:<br>
+          <br>
+          Make sure the <b>sqrl.exe</b> client is installed.  Open a
+          browser and enter <b><a class="moz-txt-link-freetext"
+              href="https://ssp.server:8443/png.sqrl">https://ssp.server:8443/png.sqrl</a></b>. 
+          Depending on the browser you may get a message warning about
+          the self-signed certificate.  Allow the browser to continue. 
+          You should get a QR code image.<br>
+          <br>
+          Close the web page and enter <b><a
+              class="moz-txt-link-freetext"
+              href="https://web.server/sqrl">https://web.server/sqrl</a></b>. 
+          Accept any warning.  You should get a  page with a <b>Sign In
+            with SQRL</b> button, a <b>QR code</b> and other buttons.<br>
+          <br>
+          Click on <b>Sign In with SQRL</b> and enter your SQRL
+          password.  The web server should reply with the contents of
+          the PHP $_SERVER array (just for information) and end with responses
+          to /cps.sqrl and /add.sqrl response of the form<br>
+          <br>
+          <b>user=KRAreP6ouLlN&stat=&name=aHR0cHM6Ly93ZWIuc2VydmVyL3Nxcmwv&acct=TestAccount</b><br>
+          and<br>
+          <b>user=KRAreP6ouLlN&acct=TestAccount&name=user-name&stat=&invt=</b><br>
+          <br>
+          </b>Return to <b><a class="moz-txt-link-freetext"
+              href="https://web.server/sqrl">https://web.server/sqrl</a>
+          </b>click on <b>Shut Down</b> and return to the Linux
+          Computer<br>
+          <br>
+          18. The Function Interface<br>
+          <br>
+          Enter the command <b>./rf.sh</b> This calls the SSP-API
+          library functions for initialization, nut.sqrl and png.sqrl
+          directly instead of through http.  The code is in sspmain.c
+          under #ifdef FUNC_INTERFACE<br>
+          <br>
+          19. The PHP Extension<br>
+          <br>
+          In Firefox go to <a moz-do-not-send="true"
+            href="https://web.server/test"><b>https://web.server/test</b></a>
+          The index.php file sends nut.sqrl and png.sqrl commands to the
+          SSP-API library using the PHP extension ssphp.c and displays a
+          variety of information for development purposes.<br>
+          <br>
+          The command <b>./rx.sh</b> stops and restarts the XAMPP
+          server.<br>
+          <br>
+          20. Installing the SSP API as a service (example)<br>
+          <br>
+          If you wish to run the SSP API as a service, create this file:<br>
+          <b>/lib/systemd/system/sspapi.service</b><br>
+          Containing (replace <b>&LTuser&GT</b> with your username):<br>
+          <blockquote>          
+          [Unit]<br>
+          Description=SSP API Server<br>
+          Requires=network-online.target<br>
+          After=network-online.target<br>
+          <br>
+          [Service]<br>
+          Type=simple<br>
+          WorkingDirectory=/home/<b>&LTuser&GT</b>/Desktop/SSP-API-Demo<br>
+          ExecStart=/home/<b>&LTuser&GT</b>/Desktop/SSP-API-Demo/ssphttp<br>
+          StandardOutput=file:/home/<b>&LTuser&GT</b>/Desktop/SSP-API-Demo/stdout.txt<br>
+          StandardError=file:/home/<b>&LTuser&GT</b>/Desktop/SSP-API-Demo/stderr.txt<br>
+          <br>
+          [Install]<br>
+          WantedBy=multi-user.target<br>
+          </blockquote>          
+          Useful Commands:<br>
+          systemctl enable sspapi<br>
+          systemctl disable sspapi<br>
+          systemctl start sspapi<br>
+          systemctl stop sspapi<br>
+          systemctl status sspapi<br>
+          <br>
+          <b> </b> </div>
+      </div>
+    </div>
+  </body>
+</html>

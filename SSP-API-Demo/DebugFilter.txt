@@ -1,0 +1,5 @@
+GlobalAlloc()GlobalFree()
+InitializeCriticalSection()
+EnterCriticalSection()
+LeaveCriticalSection()
+DeleteCriticalSection()
