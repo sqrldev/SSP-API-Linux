@@ -4,7 +4,7 @@
 
 See https://www.grc.com/sqrl/sspapi.htm for further details.
 
-This is an implementation of the SSP API for Linux written in pure C.
+This is an implementation of the SSP API for Linux written in C.
 
 ## Installation
 
